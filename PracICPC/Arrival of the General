@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    //finding max index
+    
+    int mxpos = 0;
+    for (int i = 1; i < n; i++) {
+        if (a[i] > a[mxpos]) {  
+            mxpos = i;
+        }
+    }
+
+    //finding min index
+    
+    int mnpos = 0;
+    for (int i = 1; i < n; i++) {
+        if (a[i] <= a[mnpos]) {  
+            mnpos = i;
+        }
+    }
+    
+    int swapmx = mxpos;
+    int swapmn = (n - 1) - mnpos;  
+
+    //swapmx = how many steps to move the biggest number to the front. swapmn = how many steps to move the smallest number to the end.
+    
+    int totalswap; 
+    if (mxpos > mnpos) {
+
+    //if the biggest number is in front of the smallest, moving it forward will push the smallest one back by 1, so we subtract 1 to avoid counting an extra swap.
+
+        totalswap = swapmx + swapmn - 1;
+    } else {
+        totalswap = swapmx + swapmn;
+    }
+
+
+    
+    cout << totalswap << endl;
+    
+    return 0;
+}
