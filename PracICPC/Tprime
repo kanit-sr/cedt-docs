@@ -1,0 +1,56 @@
+//so basically Tprime is the square numbers and the divisor is prime for example like 4 -> 1,2,4 which 2 is a prime number so this one correct.
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+bool isPrime(ll n) {
+    if (n <= 1) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    
+    for (ll i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isTprime(ll n) {
+    ll sqrtN = sqrt(n);
+
+//so c++ or any of programming language has the problem about decimal. This one prevent errors.
+    while (sqrtN * sqrtN < n) sqrtN++;
+    while (sqrtN * sqrtN > n) sqrtN--;
+    
+    if (sqrtN * sqrtN != n) {
+        return false;
+    }
+    
+    return isPrime(sqrtN);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    
+    int n;
+    cin >> n;
+    
+    while (n--) {
+        ll x;
+        cin >> x;
+        
+        if (isTprime(x)) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
+    }
+    
+    return 0;
+}
