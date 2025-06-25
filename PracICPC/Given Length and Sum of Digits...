@@ -1,0 +1,54 @@
+Problem
+
+You have a positive integer m and a non-negative integer s. Your task is to find the smallest and the largest of the numbers that have length m and sum of digits s. The required numbers should be non-negative integers written in the decimal base without leading zeroes.
+
+Input
+The single line of the input contains a pair of integers m, s (1 ≤ m ≤ 100, 0 ≤ s ≤ 900) — the length and the sum of the digits of the required numbers.
+
+Output
+In the output print the pair of the required non-negative integer numbers — first the minimum possible number, then — the maximum possible number. If no numbers satisfying conditions required exist, print the pair of numbers "-1 -1" (without the quotes).
+
+--
+//thinking like a box, that contain 0-9, like a Probability in mathematics.
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    if ((m == 0 && n > 1) || (m > 9 * n)) {
+        cout << "-1 -1\n";
+        return 0;
+    }
+
+    int sum = m;
+    string sm = "";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j <= 9; j++) {
+            if ((i > 0 || j > 0 || (n == 1 && j == 0)) && sum - j >= 0 && sum - j <= (n - i - 1) * 9) { //finding if it's possible to place 0-9 in this box.
+                sm += char('0' + j);
+                sum -= j;
+                break;
+            }
+        }
+    }
+
+    sum = m;
+    string lg = "";
+    for (int i = 0; i < n; i++) {
+        for (int j = 9; j >= 0; j--) {
+            if (sum - j >= 0 && sum - j <= (n - i - 1) * 9) { //finding if it's possible to place 9-0 in this box.
+                lg += char('0' + j);
+                sum -= j;
+                break;
+            }
+        }
+    }
+
+    cout << sm << " " << lg ;
+    return 0;
+}
