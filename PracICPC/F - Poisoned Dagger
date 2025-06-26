@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+
+ll caldmg(ll k ,const vector<int>& attk){
+	ll totaldmg = k; //fist attack;
+	
+	for(int i = 1 ;i < attk.size() ; i++){
+		ll time_diff = attk[i] - attk[i-1];
+		totaldmg += min(k,time_diff);
+	}
+	return totaldmg;	
+}
+
+int main()
+{
+	int t;
+	cin >> t;
+	
+	while(t--){
+		
+		ll n,h;
+		cin >> n >> h;
+		
+		vector<int> attk(n);
+		
+		for(int i = 0 ; i < n ; i++){
+			cin >> attk[i];
+		}
+		
+		ll low = 1 , high = h , res = h;
+		
+		
+		while(low<=high){
+			ll mid = low + (high - low)/2 ;
+			
+			if(caldmg(mid,attk) >= h ){
+				res = mid;
+				high = mid - 1;
+			}
+			
+			else{
+				low = mid + 1;	
+			}
+		}	
+		cout << res << endl;
+			
+	}
+
+
+
+
+
+
+	return 0;
+}
